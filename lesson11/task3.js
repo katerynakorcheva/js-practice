@@ -1,5 +1,5 @@
 async function getTodo(todoId) {
-  const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${todoId}`)
+  const response = await fetch(`https://jsonplaceholder.typicode.com/todos/${todoId}`);
   const todo = await response.json();
   return todo;
 }
@@ -10,8 +10,6 @@ async function getUser(userId) {
   return user;
 }
 
-getTodo(1);
-getUser(1);
 const allResult = Promise.all([getTodo(1), getUser(1)]);
 const raceResult = Promise.race([getTodo(1), getUser(1)]);
 
