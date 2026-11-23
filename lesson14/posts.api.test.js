@@ -1,12 +1,8 @@
-const axios = require('axios')
+const PostsController = require('./controllers/PostsController');
+
 
 test("1. Get all posts", async () => {
-  const response = await axios.get('https://jsonplaceholder.typicode.com/posts', { //calling the get API
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
-  console.log(response.data);
+  const response = await PostsController.getAllPosts();
   expect(response.status).toBe(200);
   expect(Array.isArray(response.data)).toBe(true);
   expect(response.data).toHaveLength(100);
@@ -19,12 +15,7 @@ test("1. Get all posts", async () => {
 })
 
 test("2. Get post1", async () => {
-  const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1', { //calling the get API
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
-  console.log(response.data);
+  const response = await PostsController.getPost(1);
   expect(response.status).toBe(200);
   expect(response.data.id).toBe(1);
   expect(typeof response.data.title).toBe('string');
@@ -33,12 +24,7 @@ test("2. Get post1", async () => {
 })
 
 test("3. Get post1 comments", async () => {
-  const response = await axios.get('https://jsonplaceholder.typicode.com/posts/1/comments', { //calling the get API
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
-  console.log(response.data);
+  const response = await PostsController.getPostComments(1);
   expect(response.status).toBe(200);
   expect(Array.isArray(response.data)).toBe(true);
   expect(response.data).toHaveLength(5);
@@ -52,12 +38,7 @@ test("3. Get post1 comments", async () => {
 })
 
 test("4. Get comments?postId=1", async () => {
-  const response = await axios.get('https://jsonplaceholder.typicode.com/comments?postId=1', { //calling the get API
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
-  console.log(response.data);
+  const response = await PostsController.getCommentsByPostId(1);
   expect(response.status).toBe(200);
   expect(Array.isArray(response.data)).toBe(true);
   expect(response.data).toHaveLength(5);
@@ -77,12 +58,7 @@ test("5. Create post", async () => {
     body: 'I would like to create a post',
     userId: 1,
   };
-  const response = await axios.post('https://jsonplaceholder.typicode.com/posts', newPost, { //calling the post API
-    headers: {
-      'Content-Type': 'application/json',
-    }
-  });
-  console.log(response.data);
+  const response = await PostsController.createPost(newPost);
   expect(response.status).toBe(201);
   expect(response.data.title).toBe(newPost.title);
   expect(response.data.body).toBe(newPost.body);
