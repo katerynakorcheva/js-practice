@@ -1,4 +1,3 @@
-const axios = require('axios');
 const BooksController = require('./controllers/BooksController');
 const UserController = require('./controllers/UserController');
 
